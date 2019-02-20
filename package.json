@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "planner-monorepo",
+  "version": "1.0.0",
+  "description": "planner-monorepo",
+  "main": "index.js",
+  "repository": "git@github.com:tjohnson1106/Planner.git",
+  "author": "Thomas Johnson <tjohnson1106@gmail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ]
+}
