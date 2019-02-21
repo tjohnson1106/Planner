@@ -14,7 +14,7 @@ var CounterStore_1 = require("./stores/CounterStore");
 exports.App = mobx_react_lite_1.observer(function () {
     var counterStore = react_1.useContext(CounterStore_1.CounterStoreContext);
     return (react_1.default.createElement(react_native_1.View, { style: styles.container },
-        react_1.default.createElement(react_native_1.Text, { style: styles.welcome }, "Use State"),
+        react_1.default.createElement(react_native_1.Text, { style: styles.welcome }, "Planner"),
         react_1.default.createElement(react_native_1.Text, { style: styles.instructions }, "Just a hooks example"),
         react_1.default.createElement(react_native_1.Text, { style: styles.instructions }, counterStore.count),
         react_1.default.createElement(react_native_1.Button, { title: "increment", onPress: function () { return counterStore.count++; } })));
