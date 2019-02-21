@@ -7,6 +7,8 @@
     "build": "rimraf dist && tsc"
   },
   "dependencies": {
+    "mobx": "5.9.0",
+    "mobx-react-lite": "1.0.1",
     "react": "16.8.2",
     "react-native": "^0.59.0-rc.1"
   },
