@@ -5,17 +5,24 @@ import { Router } from "./Router";
 
 export const App = () => {
   return (
-    <View style={styles.container}>
-      <Router />
+    <View style={styles.root}>
+      <View style={styles.wrapper}>
+        <Router />
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    height: "100%"
+  },
+  wrapper: {
+    width: "100%",
+    maxWidth: 425,
     backgroundColor: "#F5FCFF"
   }
 });
