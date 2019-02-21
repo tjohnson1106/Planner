@@ -12,6 +12,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
+    "strictPropertyInitialization": false,
     "declaration": true,
     "jsx": "react"
   },
