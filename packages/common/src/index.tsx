@@ -1,20 +1,15 @@
-import React, { useContext } from "react";
-import { Platform, StyleSheet, Text, View, Button } from "react-native";
-import { observer } from "mobx-react-lite";
-import { CounterStoreContext } from "./stores/CounterStore";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 
-export const App = observer(() => {
-  const counterStore = useContext(CounterStoreContext);
+import { Router } from "./Router";
 
+export const App = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.welcome}>Planner</Text>
-      <Text style={styles.instructions}>Just a hooks example</Text>
-      <Text style={styles.instructions}>{counterStore.count}</Text>
-      <Button title="increment" onPress={() => counterStore.count++} />
+      <Router />
     </View>
   );
-});
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -22,15 +17,5 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#F5FCFF"
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: "center",
-    margin: 10
-  },
-  instructions: {
-    textAlign: "center",
-    color: "#333333",
-    marginBottom: 5
   }
 });

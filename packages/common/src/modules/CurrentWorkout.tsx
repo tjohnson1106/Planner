@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 
 interface Props {}
 
-export const CurrentWorkoutPage: React.FC<Props> = () => {
+export const CurrentWorkout: React.FC<Props> = () => {
   return (
     <View>
       <Text>Current Workout Page</Text>
