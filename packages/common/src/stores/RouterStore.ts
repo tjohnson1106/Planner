@@ -1,8 +1,8 @@
 import { observable } from "mobx";
 import { createContext } from "react";
 
-// can be union
-type Routes = "WorkoutHistory";
+// union
+type Routes = "WorkoutHistory" | "CurrentWorkout";
 
 class RouterStore {
   @observable screen: Routes = "WorkoutHistory";
