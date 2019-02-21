@@ -1,25 +1,20 @@
-import React, { Component, useState } from "react";
+import React, { useContext } from "react";
 import { Platform, StyleSheet, Text, View, Button } from "react-native";
+import { observer } from "mobx-react-lite";
+import { CounterStoreContext } from "./stores/CounterStore";
 
-const instructions = Platform.select({
-  ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
-  android:
-    "Double tap R on your keyboard to reload,\n" +
-    "Shake or press menu button for dev menu"
-});
-
-export const App = () => {
-  const [count, setCount] = useState(0);
+export const App = observer(() => {
+  const counterStore = useContext(CounterStoreContext);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.welcome}>Use State</Text>
+      <Text style={styles.welcome}>Planner</Text>
       <Text style={styles.instructions}>Just a hooks example</Text>
-      <Text style={styles.instructions}>{count}</Text>
-      <Button title="increment" onPress={() => setCount(count + 1)} />
+      <Text style={styles.instructions}>{counterStore.count}</Text>
+      <Button title="increment" onPress={() => counterStore.count++} />
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
