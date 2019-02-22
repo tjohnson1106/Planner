@@ -19,23 +19,29 @@ export const WorkoutCard: React.FC<Props> = ({
       </View>
       <View style={styles.bottomRow}>
         {sets.map((set, index) => {
-          if (set === "x") {
+          if (set === "X") {
             return (
-              <View style={[styles.circle, styles.gray]} key={set + index}>
-                <Text>X</Text>
+              <View
+                style={[styles.circle, styles.fadedBackground]}
+                key={set + index}
+              >
+                <Text style={[styles.circleText, styles.grayText]}>X</Text>
               </View>
             );
           }
 
           if (set === "") {
             return (
-              <View style={[styles.circle, styles.gray]} key={set + index} />
+              <View
+                style={[styles.circle, styles.fadedBackground]}
+                key={set + index}
+              />
             );
           }
 
           return (
             <View style={styles.circle} key={set + index}>
-              <Text style={styles.circleText}>{set}</Text>
+              <Text style={[styles.whiteText, styles.circleText]}>{set}</Text>
             </View>
           );
         })}
@@ -66,7 +72,7 @@ const styles = StyleSheet.create({
   },
   bottomRow: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     marginTop: 14
   },
   circle: {
@@ -74,10 +80,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#8FB299",
     padding: 15
   },
-  circleText: {
+  whiteText: {
     color: "#fff"
   },
-  gray: {
+  circleText: {
+    fontSize: 16
+  },
+  grayText: {
+    color: "#7F7F7F"
+  },
+  fadedBackground: {
     backgroundColor: "#B2A1A1"
   }
 });

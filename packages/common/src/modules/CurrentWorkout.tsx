@@ -11,7 +11,7 @@ export const CurrentWorkout: React.FC<Props> = () => {
       <WorkoutCard
         exercise="Squat"
         repsAndWeight="5X5 260"
-        sets={["5", "5", "5", "5", "5"]}
+        sets={["5", "5", "5", "", "X"]}
       />
     </View>
   );
