@@ -32,7 +32,8 @@ export const WorkoutCard: React.FC<Props> = observer(
 
             if (set === "") {
               return (
-                <View
+                <TouchableOpacity
+                  onPress={() => onSetPress(index)}
                   style={[styles.circle, styles.fadedBackground]}
                   key={set + index}
                 />
