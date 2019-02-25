@@ -76,7 +76,10 @@ const styles = StyleSheet.create({
     marginTop: 14
   },
   circle: {
-    borderRadius: 100,
+    // implement circle -> borderRadius = height && width / 2
+    height: 50,
+    width: 50,
+    borderRadius: 25,
     backgroundColor: "#8FB299",
     padding: 15
   },
@@ -84,10 +87,11 @@ const styles = StyleSheet.create({
     color: "#fff"
   },
   circleText: {
-    fontSize: 16
+    fontSize: 16,
+    margin: "auto"
   },
   grayText: {
-    color: "#7F7F7F"
+    color: "#655252"
   },
   fadedBackground: {
     backgroundColor: "#B2A1A1"
