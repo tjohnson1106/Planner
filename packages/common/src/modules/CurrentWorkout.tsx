@@ -28,7 +28,8 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
 
 const styles = StyleSheet.create({
   root: {
+    flex: 1,
     backgroundColor: "#fafafa",
-    margin: 10
+    padding: 10
   }
 });

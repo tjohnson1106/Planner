@@ -1,5 +1,5 @@
 import { observable } from "mobx";
-import { createContext } from "react";
+
 import { RootStore } from "./RootStore";
 
 // union
@@ -11,5 +11,5 @@ export class RouterStore {
     this.rootStore = rootStore;
   }
 
-  @observable screen: Routes = "CurrentWorkout";
+  @observable screen: Routes = "WorkoutHistory";
 }
