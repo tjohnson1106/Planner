@@ -29,6 +29,7 @@ interface CurrentExercise {
   reps: number;
   numSets: number;
   exercise: string;
+  sets: string[];
 }
 
 export class WorkoutStore {

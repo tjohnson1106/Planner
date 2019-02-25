@@ -14,6 +14,30 @@ export const WorkoutHistory: React.FC<Props> = observer(() => {
       <Button
         title="create workout"
         onPress={() => {
+          rootStore.workoutStore.currentExercises.push(
+            {
+              exercise: "squat",
+              numSets: 5,
+              reps: 5,
+              sets: ["5", "5", "5", "5", "5"],
+              weight: 260
+            },
+
+            {
+              exercise: "Bench Press",
+              numSets: 5,
+              reps: 5,
+              sets: ["5", "5", "5", "5", "5"],
+              weight: 200
+            },
+            {
+              exercise: "Deadlift",
+              numSets: 1,
+              reps: 5,
+              sets: ["5", "X", "X", "X", "5"],
+              weight: 360
+            }
+          );
           rootStore.routerStore.screen = "CurrentWorkout";
         }}
       />

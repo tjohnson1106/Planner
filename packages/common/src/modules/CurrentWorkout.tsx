@@ -1,21 +1,30 @@
 import * as React from "react";
 import { View, StyleSheet } from "react-native";
+import { observer } from "mobx-react-lite";
 
 import { WorkoutCard } from "../ui/WorkoutCard";
+import { RootStoreContext } from "../stores/RootStore";
 
 interface Props {}
 
-export const CurrentWorkout: React.FC<Props> = () => {
+export const CurrentWorkout: React.FC<Props> = observer(() => {
+  const rootStore = React.useContext(RootStoreContext);
+
   return (
     <View style={styles.root}>
-      <WorkoutCard
-        exercise="Squat"
-        repsAndWeight="5X5 260"
-        sets={["5", "5", "5", "", "X"]}
-      />
+      {rootStore.workoutStore.currentExercises.map((e) => {
+        return (
+          <WorkoutCard
+            key={e.exercise}
+            exercise={e.exercise}
+            repsAndWeight={`${e.numSets}X${e.reps} ${e.weight}`}
+            sets={e.sets}
+          />
+        );
+      })}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   root: {

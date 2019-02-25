@@ -1,54 +1,53 @@
 import * as React from "react";
 import { StyleSheet, View, Text } from "react-native";
+import { observer } from "mobx-react-lite";
 
 interface Props {
   exercise: string;
   repsAndWeight: string;
   sets: string[];
 }
-export const WorkoutCard: React.FC<Props> = ({
-  exercise,
-  repsAndWeight,
-  sets
-}) => {
-  return (
-    <View style={styles.card}>
-      <View style={styles.topRow}>
-        <Text style={styles.topRowText}>{exercise}</Text>
-        <Text style={styles.topRowText}>{repsAndWeight}</Text>
-      </View>
-      <View style={styles.bottomRow}>
-        {sets.map((set, index) => {
-          if (set === "X") {
+export const WorkoutCard: React.FC<Props> = observer(
+  ({ exercise, repsAndWeight, sets }) => {
+    return (
+      <View style={styles.card}>
+        <View style={styles.topRow}>
+          <Text style={styles.topRowText}>{exercise}</Text>
+          <Text style={styles.topRowText}>{repsAndWeight}</Text>
+        </View>
+        <View style={styles.bottomRow}>
+          {sets.map((set, index) => {
+            if (set === "X") {
+              return (
+                <View
+                  style={[styles.circle, styles.fadedBackground]}
+                  key={set + index}
+                >
+                  <Text style={[styles.circleText, styles.grayText]}>X</Text>
+                </View>
+              );
+            }
+
+            if (set === "") {
+              return (
+                <View
+                  style={[styles.circle, styles.fadedBackground]}
+                  key={set + index}
+                />
+              );
+            }
+
             return (
-              <View
-                style={[styles.circle, styles.fadedBackground]}
-                key={set + index}
-              >
-                <Text style={[styles.circleText, styles.grayText]}>X</Text>
+              <View style={styles.circle} key={set + index}>
+                <Text style={[styles.whiteText, styles.circleText]}>{set}</Text>
               </View>
             );
-          }
-
-          if (set === "") {
-            return (
-              <View
-                style={[styles.circle, styles.fadedBackground]}
-                key={set + index}
-              />
-            );
-          }
-
-          return (
-            <View style={styles.circle} key={set + index}>
-              <Text style={[styles.whiteText, styles.circleText]}>{set}</Text>
-            </View>
-          );
-        })}
+          })}
+        </View>
       </View>
-    </View>
-  );
-};
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   card: {
