@@ -28,7 +28,7 @@ export class WorkoutTimerStore {
     this.measure();
   }
 
-  @action endTimer() {
+  @action stopTimer() {
     this.isRunning = false;
     this.seconds = 0;
   }

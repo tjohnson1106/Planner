@@ -10,6 +10,11 @@ interface Props {}
 
 export const CurrentWorkout: React.FC<Props> = observer(() => {
   const rootStore = React.useContext(RootStoreContext);
+  React.useEffect(() => {
+    return () => {
+      rootStore.workoutTimerStore.stopTimer();
+    };
+  }, []);
 
   return (
     <View style={styles.root}>
@@ -43,7 +48,7 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
       {rootStore.workoutTimerStore.isRunning ? (
         <WorkoutTimer
           currentTime={rootStore.workoutTimerStore.display}
-          onXPress={() => rootStore.workoutTimerStore.endTimer()}
+          onXPress={() => rootStore.workoutTimerStore.stopTimer()}
         />
       ) : null}
     </View>
