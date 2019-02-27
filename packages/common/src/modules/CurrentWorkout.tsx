@@ -39,7 +39,10 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
           />
         );
       })}
-      <WorkoutTimer onXPress={() => {}} />
+      <WorkoutTimer
+        currentTime={rootStore.workoutTimerStore.display()}
+        onXPress={() => {}}
+      />
     </View>
   );
 });

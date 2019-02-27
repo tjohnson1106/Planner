@@ -25,7 +25,8 @@ export class WorkoutTimerStore {
   }
 
   // returns new field -> minutes
-  @computed display() {
+  // can access properties with get
+  @computed get display() {
     const minutes = `${Math.floor(this.seconds / 60)}`;
     const seconds = this.seconds % 60;
 

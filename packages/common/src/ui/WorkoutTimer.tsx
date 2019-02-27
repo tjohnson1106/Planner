@@ -3,12 +3,13 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 interface Props {
   onXPress: () => void;
+  currentTime: string;
 }
 
-export const WorkoutTimer: React.FC<Props> = ({ onXPress }) => {
+export const WorkoutTimer: React.FC<Props> = ({ onXPress, currentTime }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.timeText}>Workout Timer</Text>
+      <Text style={styles.timeText}>{currentTime}</Text>
       <TouchableOpacity onPress={onXPress}>
         <Text style={styles.check}>X</Text>
       </TouchableOpacity>
