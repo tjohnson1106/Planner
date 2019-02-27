@@ -33,6 +33,10 @@ export class WorkoutTimerStore {
     this.seconds = 0;
   }
 
+  @computed get percent() {
+    return `${Math.min(100, (this.seconds / 180) * 100)}%`;
+  }
+
   // returns new field -> minutes
   // can access properties with get
   @computed get display() {

@@ -31,6 +31,7 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
               if (v === "") {
                 newValue = `${e.reps}`;
               } else if (v === "0") {
+                rootStore.workoutTimerStore.stopTimer();
                 newValue = "";
               } else {
                 newValue = `${parseInt(v) - 1}`;
@@ -47,6 +48,7 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
       })}
       {rootStore.workoutTimerStore.isRunning ? (
         <WorkoutTimer
+          percent={rootStore.workoutTimerStore.percent}
           currentTime={rootStore.workoutTimerStore.display}
           onXPress={() => rootStore.workoutTimerStore.stopTimer()}
         />
