@@ -40,10 +40,12 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
           />
         );
       })}
-      <WorkoutTimer
-        currentTime={rootStore.workoutTimerStore.display}
-        onXPress={() => {}}
-      />
+      {rootStore.workoutTimerStore.isRunning ? (
+        <WorkoutTimer
+          currentTime={rootStore.workoutTimerStore.display}
+          onXPress={() => rootStore.workoutTimerStore.endTimer()}
+        />
+      ) : null}
     </View>
   );
 });
