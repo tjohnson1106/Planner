@@ -4,15 +4,23 @@ import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 interface Props {
   onXPress: () => void;
   currentTime: string;
+  percent: string;
 }
 
-export const WorkoutTimer: React.FC<Props> = ({ onXPress, currentTime }) => {
+export const WorkoutTimer: React.FC<Props> = ({
+  onXPress,
+  currentTime,
+  percent
+}) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.timeText}>{currentTime}</Text>
-      <TouchableOpacity onPress={onXPress}>
-        <Text style={styles.check}>X</Text>
-      </TouchableOpacity>
+      <View style={[styles.line, { width: percent }]} />
+      <View style={styles.row}>
+        <Text style={styles.timeText}>{currentTime}</Text>
+        <TouchableOpacity onPress={onXPress}>
+          <Text style={styles.check}>X</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -24,7 +32,10 @@ const styles = StyleSheet.create({
     left: 0,
     height: 50,
     width: "100%",
-    backgroundColor: "#486550",
+    backgroundColor: "#486550"
+  },
+  row: {
+    flex: 1,
     justifyContent: "space-between",
     flexDirection: "row",
     alignItems: "center",
@@ -37,5 +48,9 @@ const styles = StyleSheet.create({
   check: {
     color: "#B2A1A1",
     fontSize: 30
+  },
+  line: {
+    height: 4,
+    backgroundColor: "#B2A1A1"
   }
 });
