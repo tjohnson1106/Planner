@@ -4,11 +4,17 @@ import { observer } from "mobx-react-lite";
 
 import { WorkoutCard } from "../ui/WorkoutCard";
 import { RootStoreContext } from "../stores/RootStore";
+import { WorkoutTimer } from "../ui/WorkoutTimer";
 
 interface Props {}
 
 export const CurrentWorkout: React.FC<Props> = observer(() => {
   const rootStore = React.useContext(RootStoreContext);
+  React.useEffect(() => {
+    return () => {
+      rootStore.workoutTimerStore.stopTimer();
+    };
+  }, []);
 
   return (
     <View style={styles.root}>
@@ -16,6 +22,7 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
         return (
           <WorkoutCard
             onSetPress={(setIndex) => {
+              rootStore.workoutTimerStore.startTimer();
               const v = e.sets[setIndex];
 
               // really do not like this
@@ -38,6 +45,12 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
           />
         );
       })}
+      {rootStore.workoutTimerStore.isRunning ? (
+        <WorkoutTimer
+          currentTime={rootStore.workoutTimerStore.display}
+          onXPress={() => rootStore.workoutTimerStore.stopTimer()}
+        />
+      ) : null}
     </View>
   );
 });
