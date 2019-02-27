@@ -1,6 +1,14 @@
 import { observable, action, comparer, computed } from "mobx";
 import dayjs from "dayjs";
 
+const padZero = (n: number) => {
+  if (n >= 10) {
+    return n;
+  }
+
+  return `0${n}`;
+};
+
 export class WorkoutTimerStore {
   @observable startTime = dayjs();
   @observable isRunning = false;
@@ -27,9 +35,9 @@ export class WorkoutTimerStore {
   // returns new field -> minutes
   // can access properties with get
   @computed get display() {
-    const minutes = `${Math.floor(this.seconds / 60)}`;
+    const minutes = Math.floor(this.seconds / 60);
     const seconds = this.seconds % 60;
 
-    return `${minutes}:${seconds}`;
+    return `${padZero(minutes)}:${padZero(seconds)}`;
   }
 }

@@ -17,6 +17,7 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
         return (
           <WorkoutCard
             onSetPress={(setIndex) => {
+              rootStore.workoutTimerStore.startTimer();
               const v = e.sets[setIndex];
 
               // really do not like this
@@ -40,7 +41,7 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
         );
       })}
       <WorkoutTimer
-        currentTime={rootStore.workoutTimerStore.display()}
+        currentTime={rootStore.workoutTimerStore.display}
         onXPress={() => {}}
       />
     </View>
