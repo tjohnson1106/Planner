@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 
 import { WorkoutCard } from "../ui/WorkoutCard";
 import { RootStoreContext } from "../stores/RootStore";
+import { WorkoutTimer } from "../ui/WorkoutTimer";
 
 interface Props {}
 
@@ -38,6 +39,7 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
           />
         );
       })}
+      <WorkoutTimer onXPress={() => {}} />
     </View>
   );
 });
