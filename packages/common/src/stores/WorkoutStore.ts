@@ -1,7 +1,8 @@
-import { createContext } from "react";
+import * as React from "react";
+import { observable } from "mobx";
+import { persist } from "mobx-persist";
 
 import { RootStore } from "./RootStore";
-import { observable } from "mobx";
 
 type WorkoutDay = "a" | "b";
 
@@ -11,18 +12,6 @@ interface WorkoutHistory {
     value: number;
   }>;
 }
-
-// example
-// date: [
-//     {
-//         exercise: "squat",
-//         value: 90
-//     },
-//     {
-//         exercise: "benchpress",
-//         value: 90
-//     }
-// ]
 
 interface CurrentExercise {
   weight: number;
@@ -37,12 +26,12 @@ export class WorkoutStore {
   constructor(rootStore: RootStore) {
     this.rootStore = rootStore;
   }
-  @observable currentSquat: number;
-  @observable currentBench: number;
-  @observable currentOverHeadPress: number;
-  @observable currentDeadLift: number;
-  @observable currentBarbellRow: number;
-  @observable lastWorkoutType: WorkoutDay;
-  @observable currentExercises: CurrentExercise[] = [];
-  @observable history: WorkoutHistory;
+  @persist @observable currentSquat: number;
+  @persist @observable currentBench: number;
+  @persist @observable currentOverHeadPress: number;
+  @persist @observable currentDeadLift: number;
+  @persist @observable currentBarbellRow: number;
+  @persist @observable lastWorkoutType: WorkoutDay;
+  @persist @observable currentExercises: CurrentExercise[] = [];
+  @persist @observable history: WorkoutHistory;
 }

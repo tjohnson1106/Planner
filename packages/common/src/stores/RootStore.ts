@@ -1,10 +1,22 @@
 import { createContext } from "react";
+import { AsyncStorage } from "react-native";
 
 import { WorkoutStore } from "./WorkoutStore";
 import { WorkoutTimerStore } from "./WorkoutTimerStore";
+import { create } from "mobx-persist";
+
+const hydrate = create({
+  storage: AsyncStorage,
+  jsonify: true
+});
 
 export class RootStore {
   workoutStore = new WorkoutStore(this);
   workoutTimerStore = new WorkoutTimerStore();
+
+  constructor() {
+    hydrate("workoutTimer", this.workoutTimerStore);
+    hydrate("workout", this.workoutStore);
+  }
 }
 export const RootStoreContext = createContext(new RootStore());
