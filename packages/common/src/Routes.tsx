@@ -2,7 +2,7 @@ import * as React from "react";
 
 import { WorkoutHistory } from "./modules/WorkoutHistory";
 import { CurrentWorkout } from "./modules/CurrentWorkout";
-import { Router, Switch, Route } from "./router";
+import { Router, Switch, Route } from "./router/index";
 
 export const Routes = () => {
   return (
