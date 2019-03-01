@@ -11,7 +11,8 @@ const padZero = (n: number) => {
 };
 
 export class WorkoutTimerStore {
-  @persist @observable startTime = dayjs();
+  // specify data type for dayjs non-primitive
+  @persist("object") @observable startTime = dayjs();
   @persist @observable isRunning = false;
   @persist @observable seconds = 0;
 

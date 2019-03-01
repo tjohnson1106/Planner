@@ -31,7 +31,9 @@ export class WorkoutStore {
   @persist @observable currentOverHeadPress: number;
   @persist @observable currentDeadLift: number;
   @persist @observable currentBarbellRow: number;
+
+  // required:  specify data type to persist for non-primitives
   @persist @observable lastWorkoutType: WorkoutDay;
-  @persist @observable currentExercises: CurrentExercise[] = [];
-  @persist @observable history: WorkoutHistory;
+  @persist("list") @observable currentExercises: CurrentExercise[] = [];
+  @persist("list") @observable history: WorkoutHistory;
 }
