@@ -15,7 +15,11 @@ export class RootStore {
   workoutTimerStore = new WorkoutTimerStore();
 
   constructor() {
-    hydrate("workoutTimer", this.workoutTimerStore);
+    hydrate("workoutTimer", this.workoutTimerStore).then(() => {
+      if (this.workoutTimerStore.isRunning) {
+        this.workoutTimerStore.measure();
+      }
+    });
     hydrate("workout", this.workoutStore);
   }
 }
