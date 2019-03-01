@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Button } from "react-native";
 import { observer } from "mobx-react-lite";
 
 import { WorkoutCard } from "../ui/WorkoutCard";
@@ -45,6 +45,7 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
           />
         );
       })}
+      <Button title="SAVE" onPress={() => {}} />
       {rootStore.workoutTimerStore.isRunning ? (
         <WorkoutTimer
           currentTime={rootStore.workoutTimerStore.display}
