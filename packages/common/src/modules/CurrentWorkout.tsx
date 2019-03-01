@@ -5,10 +5,11 @@ import { observer } from "mobx-react-lite";
 import { WorkoutCard } from "../ui/WorkoutCard";
 import { RootStoreContext } from "../stores/RootStore";
 import { WorkoutTimer } from "../ui/WorkoutTimer";
+import { RouteComponentProps } from "react-router";
 
-interface Props {}
+interface Props extends RouteComponentProps {}
 
-export const CurrentWorkout: React.FC<Props> = observer(() => {
+export const CurrentWorkout: React.FC<Props> = observer(({ history }) => {
   const rootStore = React.useContext(RootStoreContext);
   React.useEffect(() => {
     return () => {
@@ -45,7 +46,15 @@ export const CurrentWorkout: React.FC<Props> = observer(() => {
           />
         );
       })}
-      <Button title="SAVE" onPress={() => {}} />
+      <Button
+        title="SAVE"
+        onPress={() => {
+          rootStore.workoutStore.history["2019-01-12"] =
+            rootStore.workoutStore.currentExercises;
+          rootStore.workoutStore.currentExercises = [];
+          history.push("/");
+        }}
+      />
       {rootStore.workoutTimerStore.isRunning ? (
         <WorkoutTimer
           currentTime={rootStore.workoutTimerStore.display}

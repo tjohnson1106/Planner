@@ -32,5 +32,5 @@ export class WorkoutStore {
   // required:  specify data type to persist for non-primitives
   @persist @observable lastWorkoutType: WorkoutDay;
   @persist("list") @observable currentExercises: CurrentExercise[] = [];
-  @persist("list") @observable history: WorkoutHistory;
+  @persist("object") @observable history: WorkoutHistory = {};
 }
