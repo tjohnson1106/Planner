@@ -1,12 +1,13 @@
 import React, { useContext } from "react";
 import { View, Text, Button } from "react-native";
 import { observer } from "mobx-react-lite";
+import { RouteComponentProps } from "react-router";
 
 import { RootStoreContext } from "../stores/RootStore";
 
-interface Props {}
+interface Props extends RouteComponentProps {}
 
-export const WorkoutHistory: React.FC<Props> = observer(() => {
+export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
   const rootStore = useContext(RootStoreContext);
   return (
     <View>
@@ -38,7 +39,7 @@ export const WorkoutHistory: React.FC<Props> = observer(() => {
               weight: 360
             }
           );
-          rootStore.routerStore.screen = "CurrentWorkout";
+          history.push("/current-workout");
         }}
       />
     </View>
