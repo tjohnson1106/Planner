@@ -10,6 +10,19 @@ interface Props extends RouteComponentProps {}
 
 export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
   const rootStore = useContext(RootStoreContext);
+
+  // array of arrays
+  const rows: JSX.Element[][] = [];
+
+  Object.entries(rootStore.workoutStore.history).forEach(([dt, v], i) => {
+    const hc = <HistoryCard key={dt} header={dt} currentExercises={v} />;
+    if (i % 2 === 0) {
+      rows.push([hc]);
+    } else {
+      rows[rows.length - 1].push(hc);
+    }
+  });
+
   return (
     <View>
       <Text>Workout History Page</Text>
