@@ -20,6 +20,16 @@ export const HistoryCard: React.FC<Props> = ({ header, currentExercises }) => {
   return (
     <Card>
       <Text>{header}</Text>
+      {currentExercises.map((ce) => {
+        return (
+          // need to specify type of key in array for most strict
+          <Text key={ce.exercise}>
+            {`${
+              exerciseShortName[ce.exercise as keyof typeof exerciseShortName]
+            } ${ce.numSets}X${ce.reps} ${ce.weight}`}
+          </Text>
+        );
+      })}
     </Card>
   );
 };

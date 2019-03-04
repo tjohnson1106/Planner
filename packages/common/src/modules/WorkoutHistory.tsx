@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router";
 
 import { RootStoreContext } from "../stores/RootStore";
+import { HistoryCard } from "../ui/HistoryCard";
 
 interface Props extends RouteComponentProps {}
 
@@ -42,6 +43,10 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
           history.push("/current-workout");
         }}
       />
+      {/* map through array of objects */}
+      {Object.entries(rootStore.workoutStore.history).map(([dt, v]) => {
+        return <HistoryCard key={dt} header={dt} currentExercises={v} />;
+      })}
     </View>
   );
 });
