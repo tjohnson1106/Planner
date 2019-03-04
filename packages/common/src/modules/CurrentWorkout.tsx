@@ -50,8 +50,12 @@ export const CurrentWorkout: React.FC<Props> = observer(({ history }) => {
       <Button
         title="SAVE"
         onPress={() => {
-          rootStore.workoutStore.history[dayjs().format("YYYY-MM-DD")] =
-            rootStore.workoutStore.currentExercises;
+          rootStore.workoutStore.history[
+            dayjs(
+              // fake date generation
+              new Date(+new Date() - Math.floor(Math.random() * 10000000000))
+            ).format("YYYY-MM-DD")
+          ] = rootStore.workoutStore.currentExercises;
           rootStore.workoutStore.currentExercises = [];
           history.push("/");
         }}
