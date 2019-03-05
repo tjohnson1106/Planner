@@ -83,7 +83,7 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
         )}
         data={rows}
         //  keyExtractor should be array of dates: string
-        keyExtractor={(item) => item.reduce((pv, cv) => pv + " " + cv, "")}
+        keyExtractor={(item) => item.reduce((pv, cv) => pv + " " + cv.date, "")}
       />
     </View>
   );
