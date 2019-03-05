@@ -10,6 +10,11 @@ export const Routes = () => {
       <Switch>
         <Route exact path="/" component={WorkoutHistory} />
         <Route exact path="/current-workout" component={CurrentWorkout} />
+        <Route
+          exact
+          path="/workout/:year/:month/:daty"
+          component={CurrentWorkout}
+        />
       </Switch>
     </Router>
   );
