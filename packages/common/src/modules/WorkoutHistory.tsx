@@ -1,14 +1,39 @@
 import React, { useContext } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, Button, StyleSheet, FlatList } from "react-native";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router";
 
 import { RootStoreContext } from "../stores/RootStore";
+import { HistoryCard } from "../ui/HistoryCard";
+import { CurrentExercise } from "../stores/WorkoutStore";
 
 interface Props extends RouteComponentProps {}
 
 export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
   const rootStore = useContext(RootStoreContext);
+
+  // array of arrays
+  const rows: Array<
+    Array<{
+      date: string;
+      exercises: CurrentExercise[];
+    }>
+  > = [];
+  Object.entries(rootStore.workoutStore.history).forEach(
+    ([date, exercises], i) => {
+      if (i % 3 === 0) {
+        rows.push([
+          {
+            date,
+            exercises
+          }
+        ]);
+      } else {
+        rows[rows.length - 1].push({ date, exercises });
+      }
+    }
+  );
+
   return (
     <View>
       <Text>Workout History Page</Text>
@@ -42,6 +67,35 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
           history.push("/current-workout");
         }}
       />
+
+      <FlatList
+        renderItem={({ item }) => (
+          <View style={styles.row}>
+            {item.map(({ date, exercises }) => (
+              <View key={date} style={styles.cardContainer}>
+                <HistoryCard header={date} currentExercises={exercises} />
+              </View>
+            ))}
+
+            {item.length < 3 ? <View style={styles.cardContainer} /> : null}
+            {item.length < 2 ? <View style={styles.cardContainer} /> : null}
+          </View>
+        )}
+        data={rows}
+        //  keyExtractor should be array of dates: string
+        keyExtractor={(item) => item.reduce((pv, cv) => pv + " " + cv.date, "")}
+      />
     </View>
   );
+});
+
+const styles = StyleSheet.create({
+  row: {
+    flexDirection: "row"
+  },
+  cardContainer: {
+    flex: 1,
+    margin: 10,
+    backgroundColor: "pink"
+  }
 });
