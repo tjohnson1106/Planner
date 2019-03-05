@@ -95,7 +95,6 @@ const styles = StyleSheet.create({
   },
   cardContainer: {
     flex: 1,
-    margin: 10,
-    backgroundColor: "pink"
+    margin: 10
   }
 });
