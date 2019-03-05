@@ -29,13 +29,19 @@ export const CurrentWorkout: React.FC<Props> = observer(
       };
     }, []);
 
+    const isCurrentWorkout = !year && !month && !day;
+    const dateKey = `${year}-${month}-${day}`;
+
     return (
       <View style={styles.root}>
         <ScrollView
           contentContainerStyle={styles.scrollContainer}
           keyboardShouldPersistTaps="always"
         >
-          {rootStore.workoutStore.currentExercises.map((e) => {
+          {(isCurrentWorkout
+            ? rootStore.workoutStore.currentExercises
+            : rootStore.workoutStore.history[dateKey]
+          ).map((e) => {
             return (
               <WorkoutCard
                 onSetPress={(setIndex) => {
@@ -65,15 +71,13 @@ export const CurrentWorkout: React.FC<Props> = observer(
           <Button
             title="SAVE"
             onPress={() => {
-              rootStore.workoutStore.history[
-                dayjs(
-                  // fake date generation
-                  new Date(
-                    +new Date() - Math.floor(Math.random() * 10000000000)
-                  )
-                ).format("YYYY-MM-DD")
-              ] = rootStore.workoutStore.currentExercises;
-              rootStore.workoutStore.currentExercises = [];
+              // only if it is a current workout does it need to be saved in history
+              if (isCurrentWorkout) {
+                rootStore.workoutStore.history[dayjs().format("YYYY-MM-DD")] =
+                  rootStore.workoutStore.currentExercises;
+                rootStore.workoutStore.currentExercises = [];
+              }
+
               history.push("/");
             }}
           />
