@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import { View, Text, Button, StyleSheet, FlatList } from "react-native";
 import { observer } from "mobx-react-lite";
 import { RouteComponentProps } from "react-router";
 
 import { RootStoreContext } from "../stores/RootStore";
 import { HistoryCard } from "../ui/HistoryCard";
-import { resolveNs } from "dns";
+import { CurrentExercise } from "../stores/WorkoutStore";
 
 interface Props extends RouteComponentProps {}
 
@@ -13,16 +13,26 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
   const rootStore = useContext(RootStoreContext);
 
   // array of arrays
-  const rows: JSX.Element[][] = [];
-
-  Object.entries(rootStore.workoutStore.history).forEach(([dt, v], i) => {
-    const hc = <HistoryCard key={dt} header={dt} currentExercises={v} />;
-    if (i % 2 === 0) {
-      rows.push([hc]);
-    } else {
-      rows[rows.length - 1].push(hc);
+  const rows: Array<
+    Array<{
+      date: string;
+      exercises: CurrentExercise[];
+    }>
+  > = [];
+  Object.entries(rootStore.workoutStore.history).forEach(
+    ([date, exercises], i) => {
+      if (i % 3 === 0) {
+        rows.push([
+          {
+            date,
+            exercises
+          }
+        ]);
+      } else {
+        rows[rows.length - 1].push({ date, exercises });
+      }
     }
-  });
+  );
 
   return (
     <View>
@@ -57,13 +67,24 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
           history.push("/current-workout");
         }}
       />
-      {/* map through array of objects -> rows^ */}
 
-      {rows.map((r, i) => (
-        <View style={styles.row} key={i}>
-          {r}
-        </View>
-      ))}
+      <FlatList
+        renderItem={({ item }) => (
+          <View style={styles.row}>
+            {item.map(({ date, exercises }) => (
+              <View key={date} style={styles.cardContainer}>
+                <HistoryCard header={date} currentExercises={exercises} />
+              </View>
+            ))}
+
+            {item.length < 3 ? <View style={styles.cardContainer} /> : null}
+            {item.length < 2 ? <View style={styles.cardContainer} /> : null}
+          </View>
+        )}
+        data={rows}
+        //  keyExtractor should be array of dates: string
+        keyExtractor={(item) => item.reduce((pv, cv) => pv + " " + cv, "")}
+      />
     </View>
   );
 });
@@ -71,5 +92,10 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row"
+  },
+  cardContainer: {
+    flex: 1,
+    margin: 10,
+    backgroundColor: "pink"
   }
 });
