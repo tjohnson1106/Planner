@@ -73,7 +73,17 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
           <View style={styles.row}>
             {item.map(({ date, exercises }) => (
               <View key={date} style={styles.cardContainer}>
-                <HistoryCard header={date} currentExercises={exercises} />
+                <HistoryCard
+                  onPress={() => {
+                    // split by /year/month/day
+                    const parts = date.split("-");
+                    history.push(
+                      `/workout/${parts[0]}/${parts[1]}/${parts[2]}`
+                    );
+                  }}
+                  header={date}
+                  currentExercises={exercises}
+                />
               </View>
             ))}
 

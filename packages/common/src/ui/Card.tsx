@@ -8,7 +8,11 @@ interface Props {
 
 export const Card: React.FC<Props> = ({ children, onPress }) => {
   if (onPress) {
-    return <TouchableOpacity style={styles.card}>{children}</TouchableOpacity>;
+    return (
+      <TouchableOpacity onPress={onPress} style={styles.card}>
+        {children}
+      </TouchableOpacity>
+    );
   }
 
   return <View style={styles.card}>{children}</View>;
