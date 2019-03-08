@@ -26,8 +26,8 @@ export class WorkoutStore {
   @persist @observable currentSquat: number = 45;
   @persist @observable currentBench: number = 45;
   @persist @observable currentOverHeadPress: number = 45;
-  @persist @observable currentDeadLift: number = 45;
-  @persist @observable currentBarbellRow: number = 45;
+  @persist @observable currentDeadLift: number = 65;
+  @persist @observable currentBarbellRow: number = 65;
 
   // required:  specify data type to persist for non-primitives
   @persist @observable lastWorkoutType: WorkoutDay = "a";

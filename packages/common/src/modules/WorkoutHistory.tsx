@@ -67,31 +67,54 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
       <FloatingActionButton
         onPress={() => {
           if (!rootStore.workoutStore.hasCurrentWorkout) {
-            rootStore.workoutStore.currentExercises.push(
-              {
-                exercise: "squat",
-                numSets: 5,
-                reps: 5,
-                sets: ["", "", "", "", ""],
-                weight: 260
-              },
+            const {
+              currentBarbellRow,
+              currentBench,
+              currentDeadLift,
+              currentSquat,
+              currentOverHeadPress
+            } = rootStore.workoutStore;
 
-              {
-                exercise: "Bench Press",
-                numSets: 5,
-                reps: 5,
-                sets: ["", "", "", "", ""],
-                weight: 200
-              },
-              {
-                exercise: "Deadlift",
-                numSets: 1,
-                reps: 5,
-                sets: ["5", "X", "X", "X", "5"],
-                weight: 360
-              }
-            );
+            const emptySets = ["", "", "", "", ""];
+
+            // temp hard code
+
+            if (rootStore.workoutStore.lastWorkoutType === "b") {
+              rootStore.workoutStore.currentExercises.push(
+                {
+                  exercise: "squat",
+                  numSets: 5,
+                  reps: 5,
+                  sets: [...emptySets],
+                  weight: currentSquat
+                },
+
+                {
+                  exercise: "Bench Press",
+                  numSets: 5,
+                  reps: 5,
+                  sets: [...emptySets],
+                  weight: currentBench
+                },
+                {
+                  exercise: "Deadlift",
+                  numSets: 1,
+                  reps: 5,
+                  sets: ["", "X", "X", "X", "X"],
+                  weight: currentDeadLift
+                }
+              );
+
+              rootStore.workoutStore.currentSquat += 2.5;
+              rootStore.workoutStore.currentBench += 2.5;
+              rootStore.workoutStore.currentDeadLift += 2.5;
+            } else {
+            }
+
+            rootStore.workoutStore.lastWorkoutType =
+              rootStore.workoutStore.lastWorkoutType === "a" ? "b" : "a";
           }
+
           history.push("/current-workout");
         }}
       />
