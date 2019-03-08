@@ -6,6 +6,7 @@ import { RouteComponentProps } from "react-router";
 import { RootStoreContext } from "../stores/RootStore";
 import { HistoryCard } from "../ui/HistoryCard";
 import { CurrentExercise } from "../stores/WorkoutStore";
+import { FloatingActionButton } from "../ui/FloatingActionButton";
 
 interface Props extends RouteComponentProps {}
 
@@ -35,7 +36,7 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
   );
 
   return (
-    <View>
+    <View style={styles.root}>
       <Text>Workout History Page</Text>
       <Button
         title="create workout"
@@ -95,6 +96,7 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
         //  keyExtractor should be array of dates: string
         keyExtractor={(item) => item.reduce((pv, cv) => pv + " " + cv.date, "")}
       />
+      <FloatingActionButton />
     </View>
   );
 });
@@ -102,6 +104,9 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row"
+  },
+  root: {
+    flex: 1
   },
   cardContainer: {
     flex: 1,
