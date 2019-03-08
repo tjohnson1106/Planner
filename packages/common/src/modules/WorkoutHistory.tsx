@@ -6,6 +6,7 @@ import { RouteComponentProps } from "react-router";
 import { RootStoreContext } from "../stores/RootStore";
 import { HistoryCard } from "../ui/HistoryCard";
 import { CurrentExercise } from "../stores/WorkoutStore";
+import { FloatingActionButton } from "../ui/FloatingActionButton";
 
 interface Props extends RouteComponentProps {}
 
@@ -35,39 +36,7 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
   );
 
   return (
-    <View>
-      <Text>Workout History Page</Text>
-      <Button
-        title="create workout"
-        onPress={() => {
-          rootStore.workoutStore.currentExercises.push(
-            {
-              exercise: "squat",
-              numSets: 5,
-              reps: 5,
-              sets: ["", "", "", "", ""],
-              weight: 260
-            },
-
-            {
-              exercise: "Bench Press",
-              numSets: 5,
-              reps: 5,
-              sets: ["", "", "", "", ""],
-              weight: 200
-            },
-            {
-              exercise: "Deadlift",
-              numSets: 1,
-              reps: 5,
-              sets: ["5", "X", "X", "X", "5"],
-              weight: 360
-            }
-          );
-          history.push("/current-workout");
-        }}
-      />
-
+    <View style={styles.root}>
       <FlatList
         renderItem={({ item }) => (
           <View style={styles.row}>
@@ -95,6 +64,88 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
         //  keyExtractor should be array of dates: string
         keyExtractor={(item) => item.reduce((pv, cv) => pv + " " + cv.date, "")}
       />
+      <FloatingActionButton
+        onPress={() => {
+          if (!rootStore.workoutStore.hasCurrentWorkout) {
+            const {
+              currentBarbellRow,
+              currentBench,
+              currentDeadLift,
+              currentSquat,
+              currentOverHeadPress
+            } = rootStore.workoutStore;
+
+            const emptySets = ["", "", "", "", ""];
+
+            // temp hard code
+
+            if (rootStore.workoutStore.lastWorkoutType === "b") {
+              rootStore.workoutStore.currentExercises.push(
+                {
+                  exercise: "Squat",
+                  numSets: 5,
+                  reps: 5,
+                  sets: [...emptySets],
+                  weight: currentSquat
+                },
+
+                {
+                  exercise: "Bench Press",
+                  numSets: 5,
+                  reps: 5,
+                  sets: [...emptySets],
+                  weight: currentBench
+                },
+                {
+                  exercise: "Deadlift",
+                  numSets: 1,
+                  reps: 5,
+                  sets: ["", "X", "X", "X", "X"],
+                  weight: currentDeadLift
+                }
+              );
+
+              rootStore.workoutStore.currentSquat += 5;
+              rootStore.workoutStore.currentBench += 5;
+              rootStore.workoutStore.currentDeadLift += 5;
+            } else {
+              rootStore.workoutStore.currentExercises.push(
+                {
+                  exercise: "Squat",
+                  numSets: 5,
+                  reps: 5,
+                  sets: [...emptySets],
+                  weight: currentSquat
+                },
+
+                {
+                  exercise: "Overhead Press",
+                  numSets: 5,
+                  reps: 5,
+                  sets: [...emptySets],
+                  weight: currentOverHeadPress
+                },
+                {
+                  exercise: "Barbell Row",
+                  numSets: 1,
+                  reps: 5,
+                  sets: [...emptySets],
+                  weight: currentBarbellRow
+                }
+              );
+
+              rootStore.workoutStore.currentSquat += 5;
+              rootStore.workoutStore.currentOverHeadPress += 5;
+              rootStore.workoutStore.currentBarbellRow += 5;
+            }
+
+            rootStore.workoutStore.lastWorkoutType =
+              rootStore.workoutStore.lastWorkoutType === "a" ? "b" : "a";
+          }
+
+          history.push("/current-workout");
+        }}
+      />
     </View>
   );
 });
@@ -102,6 +153,9 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row"
+  },
+  root: {
+    flex: 1
   },
   cardContainer: {
     flex: 1,
