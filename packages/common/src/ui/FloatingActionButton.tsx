@@ -1,11 +1,13 @@
 import * as React from "react";
 import { TouchableOpacity, Text, StyleSheet } from "react-native";
 
-interface Props {}
+interface Props {
+  onPress: () => void;
+}
 
-export const FloatingActionButton: React.FC<Props> = () => {
+export const FloatingActionButton: React.FC<Props> = ({ onPress }) => {
   return (
-    <TouchableOpacity style={styles.root}>
+    <TouchableOpacity onPress={onPress} style={styles.root}>
       <Text style={styles.rootText}>+</Text>
     </TouchableOpacity>
   );

@@ -37,9 +37,34 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
 
   return (
     <View style={styles.root}>
-      <Text>Workout History Page</Text>
-      <Button
-        title="create workout"
+      <FlatList
+        renderItem={({ item }) => (
+          <View style={styles.row}>
+            {item.map(({ date, exercises }) => (
+              <View key={date} style={styles.cardContainer}>
+                <HistoryCard
+                  onPress={() => {
+                    // split by /year/month/day
+                    const parts = date.split("-");
+                    history.push(
+                      `/workout/${parts[0]}/${parts[1]}/${parts[2]}`
+                    );
+                  }}
+                  header={date}
+                  currentExercises={exercises}
+                />
+              </View>
+            ))}
+
+            {item.length < 3 ? <View style={styles.cardContainer} /> : null}
+            {item.length < 2 ? <View style={styles.cardContainer} /> : null}
+          </View>
+        )}
+        data={rows}
+        //  keyExtractor should be array of dates: string
+        keyExtractor={(item) => item.reduce((pv, cv) => pv + " " + cv.date, "")}
+      />
+      <FloatingActionButton
         onPress={() => {
           rootStore.workoutStore.currentExercises.push(
             {
@@ -68,35 +93,6 @@ export const WorkoutHistory: React.FC<Props> = observer(({ history }) => {
           history.push("/current-workout");
         }}
       />
-
-      <FlatList
-        renderItem={({ item }) => (
-          <View style={styles.row}>
-            {item.map(({ date, exercises }) => (
-              <View key={date} style={styles.cardContainer}>
-                <HistoryCard
-                  onPress={() => {
-                    // split by /year/month/day
-                    const parts = date.split("-");
-                    history.push(
-                      `/workout/${parts[0]}/${parts[1]}/${parts[2]}`
-                    );
-                  }}
-                  header={date}
-                  currentExercises={exercises}
-                />
-              </View>
-            ))}
-
-            {item.length < 3 ? <View style={styles.cardContainer} /> : null}
-            {item.length < 2 ? <View style={styles.cardContainer} /> : null}
-          </View>
-        )}
-        data={rows}
-        //  keyExtractor should be array of dates: string
-        keyExtractor={(item) => item.reduce((pv, cv) => pv + " " + cv.date, "")}
-      />
-      <FloatingActionButton />
     </View>
   );
 });
